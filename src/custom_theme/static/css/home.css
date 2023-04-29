@@ -1,0 +1,156 @@
+:root {
+    /* CSS variable. Defines the behavior that should be used for 
+        all transitions */
+    --hover-transition: 300ms ease-in-out;
+
+    /* Diameter of the portrait sphere */
+    --portrait-diameter: 200px;
+    /* The distance factor for all orbiting spheres from origin */
+    --orbit-factor: 1.4;
+
+    /* Some font definitions for the spheres */
+    --font-size: 1.4em;
+    --font-color: rgb(239, 238, 255);
+}
+
+.home-container {
+    /* Force the page to be at least as high as the browser */
+    min-height: 95vh;
+}
+
+/* Here is where the magic happens. These classes only specifies 
+    variables that are used in the ball class. If an object have
+    both classes, these variables can be used also in the ball class
+    
+    - size: The factor thats multiplied with the portrait diameter
+    - pos-y: The position factor that specifies the vertical offset from origin
+    - pos-x: The position factor that specifies the horizontal offset from origin
+    */
+.cv {
+    --size: 0.75;
+    --pos-y: 0.6427; /* sin(40) */
+    --pos-x: 0.7660; /* cos(40) */
+}
+
+.projects {
+    --size: 0.70;
+    --pos-y: 0.5; /* sin(150) */
+    --pos-x: -0.8660; /* cos(150) */
+}
+
+.gitlab {
+    --size: 0.60;
+    --pos-y: -0.9848; /* sin(280) */
+    --pos-x: 0.1736; /* cos(280) */
+}
+
+.ball.portrait {
+    /* Variables only used on the portrait ball */
+    --calc-size: var(--portrait-diameter);
+    --calc-top: 50vh;
+    --calc-right: 50vw;
+}
+
+.ball:not(.portrait) {
+    /* Calculate the variables if its not the portrait one */
+    --calc-size: calc(var(--portrait-diameter) * var(--size));
+    --calc-top: calc(50vh - var(--pos-y) * var(--portrait-diameter) * var(--orbit-factor));
+    --calc-right: calc(50vw - var(--pos-x) * var(--portrait-diameter) * var(--orbit-factor));
+}
+
+/* Specifies balls that have an absolute position in order to 
+    move them to wherever you want */
+.ball {
+    /* Uses variables specified in separate classes, and and calculate the position 
+        relative to their center */
+    top: calc(var(--calc-top) - var(--calc-size) / 2);
+    right: calc(var(--calc-right) - var(--calc-size) / 2);
+    width: var(--calc-size);
+    height: var(--calc-size);
+    position: absolute;
+    border-radius: 50%;
+}
+
+/* Every direct child of ball */
+.ball > * {
+    /* Make all contents of the ball the same size as the ball */
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+}
+
+.grayed-out {
+    /* On hover, the background color transitions from gray to
+        transparent */
+    border: none;
+    padding: 0;
+    background-color: var(--grayed-color);
+    transition: background-color var(--hover-transition);
+}
+
+.grayed-out > * {
+    transition: opacity var(--hover-transition);
+}
+
+.grayed-out > *:not(label) {
+    opacity: 0;
+}
+
+.grayed-out > label { 
+    color: var(--font-color);
+    font-size: var(--font-size);
+    margin-top: calc((var(--calc-size) - var(--font-size))/2);
+    height: auto;
+    font-family: 'Oswald';
+}
+
+/* Mouse cursor */
+@media (pointer:fine) {
+    .grayed-out:hover {
+        background-color: transparent;
+    }
+
+    /* On hover, the opacity transitions from full transparency to
+        no transparency */
+    .grayed-out:hover > *:not(label) {
+        opacity: 1;
+    }
+
+    .grayed-out:hover > label {
+        opacity: 0;
+    }
+}
+
+/* Touch screen */
+@media (pointer:coarse) {
+    /* Don't display the links in order to circumvent links when pressing on the sphere */
+    .grayed-out > a {
+        display: none;
+    }
+    
+    /* The moment a button press is registered, change the background to transparent */
+    .grayed-out:active,
+    .grayed-out:focus {
+        background-color: transparent;
+    }
+
+    .grayed-out:active > label,
+    .grayed-out:focus > label {
+        opacity: 0;
+    }
+
+    /* When the button is not pressed anymore, display the contents and fade it in */
+    .grayed-out:active > *:not(label),
+    .grayed-out:focus > *:not(label) {
+        opacity: 1;
+    }
+
+    .grayed-out:active > a,
+    .grayed-out:focus > a {
+        display: inline-block;
+    }
+}

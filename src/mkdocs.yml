@@ -1,0 +1,16 @@
+site_name: west
+site_favicon: static/img/icon.png
+
+theme: 
+  name: lux
+  custom_dir: custom_theme/
+
+plugins:
+  - awesome-pages
+
+
+nav:
+    - Home: 'index.md'
+    - ...
+    - CV: 'cv.md'
+    - Gitlab: 'https://gitlab.com/jobbe97'

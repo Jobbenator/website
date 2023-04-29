@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+
+{% block scripts %}
+{{ super() }}
+<!-- Some evil google fonts and bloatware -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet"> 
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ 'static/css/home.css'|url }}">
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div class="ball portrait">
+        <img src="{{ 'static/img/img_avatar.png'|url }}" alt="Avatar">
+    </div>
+    <button class="cv ball grayed-out bg-primary">
+        <label>CV</label>
+        <img src="{{ 'static/img/img_cv.png'|url }}" alt="Avatar" class="cv_image">
+        <a href="{{ 'cv/'|url }}"></a>
+    </button>
+    <button class="projects ball grayed-out bg-primary">
+        <label>Projekt</label>
+        <img src="{{ 'static/img/img_project.png'|url }}" alt="Avatar" class="prject_image">
+        <a href="{{ 'projects/'|url }}"></a>
+    </button>
+    <button class="gitlab ball grayed-out bg-primary">
+        <label>Gitlab</label>
+        <img src="{{ 'static/img/img_gitlab.png'|url }}" alt="Avatar" class="gitlab_image">
+        <a href="https://gitlab.com/jobbe97"></a>
+    </button>
+</div>
+{% endblock %}

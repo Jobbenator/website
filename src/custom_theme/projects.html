@@ -1,0 +1,39 @@
+{% extends "main.html" %}
+
+{% block htmltitle %}
+<title>Projects - {{ config.site_name }}</title>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ 'static/css/projects.css'|url }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- <h1>{{ page.parent.title }}</h1> -->
+
+    {% for category in page.parent.children %}
+        {% if category.title.lower() != "index" and category.children %}
+        <h1>{{ category.title }}</h2>
+        <div class="project-container">
+        {% for project in category.children %}
+            <div>
+                <a href="{{ project.url|url }}">
+                    <div class="img-container">
+                        <img src="{% if project.meta and project.meta.image %}{{ project.meta.image|url }}{% else %}{{ 'static/img/default_project.png'|url }}{% endif %}">
+                        <div class="overlay">
+                            <h5>{% if project.meta and project.meta.done %}Done{% else %}In progress{% endif %}</h5>
+                        </div>
+                    </div>
+                    <h4>{{ project.title }}</h4>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

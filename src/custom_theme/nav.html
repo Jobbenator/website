@@ -1,0 +1,18 @@
+{% if nav|length>1 %}
+    <!-- Main navigation -->
+    <ul class="nav navbar-nav">
+    {% for nav_item in nav %}
+        <li class="navitem{% if nav_item.active %} active{% endif %}">
+            {% if nav_item.children %}
+                {% for nav_child in nav_item.children %}
+                    {% if nav_child.title.lower() == "index" %}
+                    <a href="{{ nav_child.url|url }}" class="nav-link">{{ nav_item.title }}</a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+            <a href="{{ nav_item.url|url }}" class="nav-link">{{ nav_item.title }}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
