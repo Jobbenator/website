@@ -1,0 +1,72 @@
+:root {
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+h1 {
+    border-bottom: 1px solid rgba(31, 31, 31, 0.432);
+}
+
+.project-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    flex-wrap: wrap;
+
+    margin-bottom: 5vh;
+}
+
+.project-container > div {
+    /* outline: solid thin black;
+    outline-offset: -5px; */
+    width: 33.3%;
+    height: 100%;
+    padding: 3vh 10px;
+    align-self: end;
+}
+
+.project-container > div h4{
+    color: black;
+    background-color: #f3f3f3;
+    text-align: center;
+    padding: 4px;
+}
+
+.img-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all .3s;
+    overflow: hidden;
+    height: 0;
+    background: rgba(0, 0, 0, 0.527);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.overlay > * {
+    color: white;
+}
+
+.img-container:hover .overlay,
+.overlay:hover {
+    height: 100%;
+}
+
+.img-container > img {
+    width: 100%;
+    display: block;
+}
