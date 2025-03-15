@@ -11,7 +11,6 @@ plugins:
 
 nav:
     - Home: 'index.md'
-    - Projects:
-      - BatteryTester: 'docs/external/BatteryTester/README.md'
+    - ...
     - CV: 'cv.md'
     - Gitlab: 'https://gitlab.com/jobbe97'
